@@ -14,9 +14,16 @@ function normalizeIp(value) {
   return ip;
 }
 
+function clientIp(req) {
+  // Render forwards the visitor address as the first X-Forwarded-For value.
+  // req.ip can otherwise be one of Render's rotating private proxy addresses.
+  const forwardedFor = req.get('x-forwarded-for');
+  const forwardedIp = forwardedFor?.split(',')[0];
+  return normalizeIp(forwardedIp || req.ip);
+}
+
 router.get('/check-ip', (req, res) => {
-  // req.ip respects Express's explicitly configured trust proxy setting.
-  const ip = normalizeIp(req.ip);
+  const ip = clientIp(req);
   const allowedIp = normalizeIp(process.env.ALLOWED_PUBLIC_IP || '196.188.112.77');
 
   if (!ip) return res.status(400).json({ error: 'Unable to determine client IP.' });
