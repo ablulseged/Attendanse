@@ -41,8 +41,8 @@ export default function App() {
     <main className="page-shell">
       <section className="attendance-card" aria-labelledby="page-title">
         <div className="brand">
-          <div className="logo" aria-label="St. merry University">SMU</div>
-          <span>St. merry University</span>
+          <div className="logo" aria-label="St. Mary's University">SMU</div>
+          <span>St. Mary&apos;s University</span>
         </div>
 
         <div className="hero-icon" aria-hidden="true">⌁</div>
